@@ -18,32 +18,67 @@ public class Ex04 {
 
         char[] onlyUnique = onlyUniqueSymbols(input);
         char[] charArr = input.toCharArray();
-        int[] sumbStat = sumbStatistic(onlyUnique,charArr);
+        int[] symbStat = symbStatistic(onlyUnique,charArr);
+        sortStatistics(onlyUnique, symbStat);
 
-
+        /*
+        test part
+         */
         System.out.println(charArr);
 
-        for (int i = 0; i < sumbStat.length; i++) {
+        for (int i = 0; i < symbStat.length; i++) {
             System.out.print(onlyUnique[i] + " ");
         }
-        System.out.println("\n");
-        for (int i = 0; i < sumbStat.length; i++) {
-            System.out.print(sumbStat[i] + " ");
+        System.out.println();
+
+        for (int i = 0; i < symbStat.length; i++) {
+            System.out.print(symbStat[i] + " ");
+        }
+        System.out.println();
+        sortStatistics(onlyUnique, symbStat);
+
+        for (int i = 0; i < symbStat.length; i++) {
+            System.out.print(onlyUnique[i] + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < symbStat.length; i++) {
+            System.out.print(symbStat[i] + " ");
+        }
+
+    }
+
+    //bubble sort
+    public static void sortStatistics(char[] uniqueSymb, int[] symbEntries)
+    {
+        for (int i = 0; i < symbEntries.length - 1 ; i++) {
+            for (int j = i + 1; j < symbEntries.length; j++) {
+                if (symbEntries[i] < symbEntries[j])
+                {
+                    char tempChar = uniqueSymb[j];
+                    uniqueSymb[j] = uniqueSymb[i];
+                    uniqueSymb[i] = tempChar;
+
+                    int tmp = symbEntries[j];
+                    symbEntries[j] = symbEntries[i];
+                    symbEntries[i] = tmp;
+                }
+            }
         }
     }
 
-    public static int[] sumbStatistic(char[] onlyUnique, char[] charArr)
+    //replace to void
+    public static int[] symbStatistic(char[] onlyUnique, char[] charArr)
     {
-        int[] sumbStat = new int[onlyUnique.length];
+        int[] symbStat = new int[onlyUnique.length];
         for (int i = 0; i < onlyUnique.length; i++) {
             for (int j = 0; j < charArr.length; j++) {
                 if (onlyUnique[i] == charArr[j])
                 {
-                    sumbStat[i]++;
+                    symbStat[i]++;
                 }
             }
         }
-        return sumbStat;
+        return symbStat;
     }
 
 
@@ -58,6 +93,7 @@ public class Ex04 {
         }
         return counter;
     }
+
 
     public static char[] onlyUniqueSymbols(String str)
     {
