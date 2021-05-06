@@ -1,5 +1,6 @@
 package com.company.day00;
 
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 /*
@@ -58,7 +59,51 @@ public class Ex04 {
             System.out.print(symbStat[i] + " ");
         }
 
+        fillDupArray(onlyUnique, symbStat);
 
+
+
+
+    }
+
+    /*
+    36
+    # 35
+    # #
+    # # 27
+    # # #
+    # # #
+    # # #
+    # # # 14 12
+    # # # # # 9
+    # # # # # # 7 4
+    # # # # # # # # 2 2
+    D A S W L K O T E R
+     */
+    public static void fillDupArray(char[] uniqueSymb, int[] sumbEntries)
+    {
+        final int lines_num = 12;
+        final int col_num = 10 * 2;
+
+        //todo: check empty arrays case
+        //todo:
+
+        char[][] outMatrix = new char[lines_num][col_num];
+
+        for (int i = 0; i < lines_num - 1; i++) {
+            for (int j = 0; j < col_num - 1; j++) {
+                outMatrix[i][j] = '*';
+            }
+        }
+
+
+
+        for (int i = 0; i < lines_num; i++) {
+            System.out.println();
+            for (int j = 0; j < col_num; j++) {
+                System.out.print(outMatrix[i][j]);
+            }
+        }
 
 
     }
