@@ -6,7 +6,7 @@ import java.util.Scanner;
     1) считаем кол-во уникальных символов
     2) массив из уникальных символов
     3) массив из повторений на каждый уникальный символ, сильная связь с 2)
-    4)
+    4) вывод двуменрый массив
     5)
  */
 
@@ -19,7 +19,7 @@ public class Ex04 {
         char[] onlyUnique = onlyUniqueSymbols(input);
         char[] charArr = input.toCharArray();
         int[] symbStat = symbStatistic(onlyUnique,charArr);
-        sortStatistics(onlyUnique, symbStat);
+       // sortStatistics(onlyUnique, symbStat);
 
         /*
         test part
@@ -35,6 +35,7 @@ public class Ex04 {
             System.out.print(symbStat[i] + " ");
         }
         System.out.println();
+        System.out.println();
         sortStatistics(onlyUnique, symbStat);
 
         for (int i = 0; i < symbStat.length; i++) {
@@ -45,6 +46,41 @@ public class Ex04 {
             System.out.print(symbStat[i] + " ");
         }
 
+        System.out.println();
+        System.out.println();
+        sortByAlp(onlyUnique, symbStat);
+
+        for (int i = 0; i < symbStat.length; i++) {
+            System.out.print(onlyUnique[i] + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < symbStat.length; i++) {
+            System.out.print(symbStat[i] + " ");
+        }
+
+
+
+
+    }
+
+    public static void sortByAlp(char[] uniqueSymb, int[] symbEntries)
+    {
+        for (int i = 0; i < symbEntries.length - 1 ; i++) {
+            for (int j = i + 1; j < symbEntries.length; j++) {
+                if (symbEntries[i] == symbEntries[j])
+                {
+                    if (uniqueSymb[i] > uniqueSymb[j]) {
+                        char tempChar = uniqueSymb[j];
+                        uniqueSymb[j] = uniqueSymb[i];
+                        uniqueSymb[i] = tempChar;
+
+                        int tmp = symbEntries[j];
+                        symbEntries[j] = symbEntries[i];
+                        symbEntries[i] = tmp;
+                    }
+                }
+            }
+        }
     }
 
     //bubble sort
