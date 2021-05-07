@@ -1,5 +1,11 @@
 package com.company.day00;
 
+/*
+ * Status: not finished
+ */
+
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
 import java.lang.reflect.Array;
 import java.util.Scanner;
 
@@ -8,6 +14,19 @@ import java.util.Scanner;
     2) массив из уникальных символов
     3) массив из повторений на каждый уникальный символ, сильная связь с 2)
     4) вывод двуменрый массив
+     /*
+   36
+    # 35
+    #  #
+    #  # 27
+    #  #  #
+    #  #  #
+    #  #  #
+    #  #  # 14 12
+    #  #  #  #  # 9
+    #  #  #  #  # # 7 4
+    #  #  #  #  # # # # 2 2
+    D  A  S  W  L K O T E R
     5)
  */
 
@@ -20,92 +39,104 @@ public class Ex04 {
         char[] onlyUnique = onlyUniqueSymbols(input);
         char[] charArr = input.toCharArray();
         int[] symbStat = symbStatistic(onlyUnique,charArr);
-       // sortStatistics(onlyUnique, symbStat);
 
-        /*
-        test part
-         */
-        System.out.println(charArr);
-
-        for (int i = 0; i < symbStat.length; i++) {
-            System.out.print(onlyUnique[i] + " ");
-        }
-        System.out.println();
-
-        for (int i = 0; i < symbStat.length; i++) {
-            System.out.print(symbStat[i] + " ");
-        }
-        System.out.println();
-        System.out.println();
         sortStatistics(onlyUnique, symbStat);
-
-        for (int i = 0; i < symbStat.length; i++) {
-            System.out.print(onlyUnique[i] + " ");
-        }
-        System.out.println();
-        for (int i = 0; i < symbStat.length; i++) {
-            System.out.print(symbStat[i] + " ");
-        }
-
-        System.out.println();
-        System.out.println();
         sortByAlp(onlyUnique, symbStat);
 
-        for (int i = 0; i < symbStat.length; i++) {
-            System.out.print(onlyUnique[i] + " ");
+
+        int len = symbStat.length < 10 ? symbStat.length : 10;
+        for (int i = 0; i < len; i++) {
+            System.out.print(onlyUnique[i] + "\t");
         }
         System.out.println();
-        for (int i = 0; i < symbStat.length; i++) {
-            System.out.print(symbStat[i] + " ");
+        for (int i = 0; i < len; i++) {
+            System.out.print(symbStat[i] + "\t");
         }
-
-        fillDupArray(onlyUnique, symbStat);
+       // System.out.println("\noutWidth res = " + outWidth(symbStat));
+       // fillDupArray(onlyUnique, symbStat);
 
 
 
 
     }
 
-    /*
-    36
-    # 35
-    # #
-    # # 27
-    # # #
-    # # #
-    # # #
-    # # # 14 12
-    # # # # # 9
-    # # # # # # 7 4
-    # # # # # # # # 2 2
-    D A S W L K O T E R
-     */
-    public static void fillDupArray(char[] uniqueSymb, int[] sumbEntries)
-    {
-        final int lines_num = 12;
-        final int col_num = 10 * 2;
 
+
+    public static int outWidth(int[] sumbEntrines)
+    {
+        int width = 0;
+        int len = sumbEntrines.length < 10 ? sumbEntrines.length : 10;
+
+        if (sumbEntrines == null || sumbEntrines.length == 0 )
+            return 0;
+
+        for (int i = 0; i < len; i++) {
+            if (sumbEntrines[i] > 99)
+                width+= 3;
+            else if (sumbEntrines[i] > 9)
+                width+= 2;
+            else if (sumbEntrines[i] > 0)
+                width++;
+            //wrong case
+            else
+                return 0;
+        }
+        return width + (len - 1);
+    }
+
+    public static void fillDupArray(char[] uniqueSymb, int[] symbEntries)
+    {
+        final int matrixHeight = 12;
+        final int matrixWidth = outWidth(symbEntries);
         //todo: check empty arrays case
         //todo:
 
-        char[][] outMatrix = new char[lines_num][col_num];
+        char[][] outMatrix = new char[matrixHeight][matrixWidth];
 
-        for (int i = 0; i < lines_num - 1; i++) {
-            for (int j = 0; j < col_num - 1; j++) {
-                outMatrix[i][j] = '*';
+        for (int i = 0; i < matrixHeight; i++) {
+            for (int j = 0; j < matrixWidth; j++) {
+                outMatrix[i][j] = 'o';
             }
         }
 
+        //create last line
 
 
-        for (int i = 0; i < lines_num; i++) {
+        //# fill
+
+        //add staticstic
+
+        //handle exception
+
+
+
+
+
+
+
+        for (int i = 0; i < matrixHeight; i++) {
             System.out.println();
-            for (int j = 0; j < col_num; j++) {
+            for (int j = 0; j < matrixWidth; j++) {
                 System.out.print(outMatrix[i][j]);
             }
         }
 
 
+    }
+
+    //
+    public static int[] digitsCapacity(char[] uniqueSymb, int[] symbEntries)
+    {
+        int[] digitCapacity = new int[symbEntries.length];
+        for (int i = 0; i < digitCapacity.length; i++) {
+                if (symbEntries[i] > 99)
+                    digitCapacity[i]+= 3;
+                else if (symbEntries[i] > 9)
+                    digitCapacity[i]+= 2;
+                else if (symbEntries[i] > 0)
+                    digitCapacity[i]++;
+            }
+        return digitCapacity;
     }
 
     public static void sortByAlp(char[] uniqueSymb, int[] symbEntries)
