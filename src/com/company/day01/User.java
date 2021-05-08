@@ -40,13 +40,16 @@ public class User {
         this.balance += sum;
     }
 
-    public void outgoingBalance(Integer sum)
+    public boolean outgoingBalance(Integer sum)
     {
-        if (sum <= this.balance)
+        if (sum <= this.balance) {
             this.balance -= sum;
-//        else
-//            System.out.println("sun > balance");
+            return  true;
+        }
+        else
+            return false;
     }
+
 
 
     public void showUserInfo()
