@@ -2,8 +2,7 @@ package com.company.day01;
 
 public class User {
 
-    private static Integer globalId = 1;
-
+  //  private static Integer globalId = 1;
 
 
     private Integer        userId;
@@ -13,7 +12,7 @@ public class User {
     public User(String name, Integer balance) {
         this.balance = balance < 0 ? 0: balance;
         this.name = name;
-        this.userId = globalId++;
+        this.userId = UserIdsGenerator.getInstance().generateId();
     }
 
     public Integer getBalance() {
