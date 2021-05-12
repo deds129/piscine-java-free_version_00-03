@@ -14,7 +14,7 @@ public interface TransactionsList {
 
     boolean removeTransactionById(UUID id);
 
-    TransactionsList[] toArray();
+    Transaction[] toArray();
 
     void showList();
 }

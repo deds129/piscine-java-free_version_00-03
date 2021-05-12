@@ -30,6 +30,10 @@ public class Program {
         transactionsList.addTransaction(transaction);
         transactionsList.addTransaction(transaction2);
         transactionsList.showList();
+        Transaction[] trs = transactionsList.toArray();
+        for (Transaction tr : trs) {
+            System.out.println(tr.amount);
+        }
 
 
     }

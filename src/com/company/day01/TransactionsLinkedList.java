@@ -1,7 +1,5 @@
 package com.company.day01;
 
-
-import java.util.LinkedList;
 import java.util.UUID;
 
 public class TransactionsLinkedList implements TransactionsList{
@@ -50,15 +48,12 @@ public class TransactionsLinkedList implements TransactionsList{
     public boolean removeTransactionById(UUID id) {
         if (size == 0)
             return false;
-        else if (size == 1)
-        {
+        else if (size == 1) {
             first = null;
             last =null;
             size = 0;
             return true;
         }
-
-            //???
             Node nodeBefore = getNodeById(id);
 
 
@@ -82,7 +77,6 @@ public class TransactionsLinkedList implements TransactionsList{
         return false;
     }
 
-    //add new func
     private Node getNodeById(UUID id) {
         if (size == 0)
             return null;
@@ -114,9 +108,22 @@ public class TransactionsLinkedList implements TransactionsList{
         }
     }
 
-    //todo: realise
     @Override
-    public TransactionsList[] toArray() {
-        return new TransactionsList[0];
+    public Transaction[] toArray() {
+        Integer arrSize;
+        arrSize = size;
+        if (size == 0)
+            return null;
+
+        Transaction[] array = new Transaction[arrSize];
+        Node temp = first;
+        Integer idx = 0;
+        while (temp != null)
+        {
+            array[idx] = temp.transaction;
+            temp = temp.next;
+            idx++;
+        }
+        return array;
     }
 }
