@@ -17,14 +17,24 @@ public class Program {
         usersList.addUser(user);
         usersList.addUser(user2);
 
-        Transaction transaction = new Transaction(usersList.getUserByIndex(0),
-                usersList.getUserByIndex(1),Category.DEBIT,
-                500);
+        Transaction transaction = null;
+        try {
+            transaction = new Transaction(usersList.getUserByIndex(0),
+                    usersList.getUserByIndex(1), Category.DEBIT,
+                    500);
+        } catch (IllegalTransactionException e) {
+            e.printStackTrace();
+        }
 
 
-        Transaction transaction2 = new Transaction(usersList.getUserByIndex(2),
-                usersList.getUserByIndex(1),Category.CREDIT,
-                1000);
+        Transaction transaction2 = null;
+        try {
+            transaction2 = new Transaction(usersList.getUserByIndex(2),
+                    usersList.getUserByIndex(1), Category.CREDIT,
+                    1000);
+        } catch (IllegalTransactionException e) {
+            e.printStackTrace();
+        }
 
         TransactionsList transactionsList = new TransactionsLinkedList();
         transactionsList.addTransaction(transaction);
@@ -32,7 +42,7 @@ public class Program {
         transactionsList.showList();
         Transaction[] trs = transactionsList.toArray();
         for (Transaction tr : trs) {
-            System.out.println(tr.amount);
+            System.out.println(tr.getAmount());
         }
 
 

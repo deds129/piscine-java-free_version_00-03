@@ -1,5 +1,7 @@
 package com.company.day01;
 
+import java.util.UUID;
+
 public class User {
 
   //  private static Integer globalId = 1;
@@ -8,6 +10,8 @@ public class User {
     private Integer        userId;
     private String         name;
     private Integer        balance;
+
+    private TransactionsLinkedList transactions;
 
     public User(String name, Integer balance) {
         this.balance = balance < 0 ? 0: balance;
@@ -49,6 +53,17 @@ public class User {
             return false;
     }
 
+    public void addTransaction(Transaction tr) {
+        transactions.addTransaction(tr);
+    }
+
+    public void removeTransaction(UUID id) throws TransactionNotFoundException{
+        transactions.removeTransactionById(id);
+    }
+
+    public Transaction[] getArrayOfTransactions() {
+        return transactions.toArray();
+    }
 
 
     public void showUserInfo()

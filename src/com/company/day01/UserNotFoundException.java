@@ -3,7 +3,7 @@ package com.company.day01;
 public class UserNotFoundException extends Exception {
 
     public UserNotFoundException() {
-        super("User mot found");
+        super("User not found");
     }
 
     public UserNotFoundException(String message) {
