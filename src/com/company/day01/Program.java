@@ -1,50 +1,65 @@
 package com.company.day01;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
-import javax.jws.soap.SOAPBinding;
 
 public class Program {
     public static void main(String[] args) {
+        User user = new User("Andrey", 10000);
+        User user1= new User("Sergey", 5000);
+        User user2= new User("Misha", 5000);
 
-        User user = new User("Mike",2000);
-        User user1 = new User("Sam", 2000);
-        User user2 = new User("Jack", 3000);
-        UsersList usersList = new UsersArrayList();
+       TransactionsService transactionsService = new TransactionsService();
 
-        System.out.println("Add users");
-        usersList.addUser(user1);
-        usersList.addUser(user);
-        usersList.addUser(user2);
+       //adding users to service
+        transactionsService.addUser(user);
+        transactionsService.addUser(user1);
+        transactionsService.addUser(user2);
 
-        Transaction transaction = null;
+
+
         try {
-            transaction = new Transaction(usersList.getUserByIndex(0),
-                    usersList.getUserByIndex(1), Category.DEBIT,
-                    500);
+            //show user balance by id
+            System.out.println(transactionsService.getUserBalance(0));
+            //show user balance by id balance
+            System.out.println(transactionsService.getUserBalanceByIndex(1));
+
+            //perform Transaction
+            transactionsService.performTransaction(0,1,2000);
+            transactionsService.performTransaction(2,1,100);
+
+            //show user balance by id
+            System.out.println(transactionsService.getUserBalance(0));
+            //show user balance by id balance
+            System.out.println(transactionsService.getUserBalanceByIndex(1));
+
+            System.out.println("User transactions: ");
+            Transaction[] trs = transactionsService.getUserTransactions(0);
+            for (Transaction tr : trs ) {
+                System.out.println(tr.transactionInfo());
+
+            }
+            //remove transaction
+            transactionsService.removeUserTransactionsById(trs[0].getTransId(),0);
+
+            System.out.println("User transactions after removing: ");
+            Transaction[] trs2 = transactionsService.getUserTransactions(0);
+            for (Transaction tr : trs2 ) {
+                System.out.println(tr.transactionInfo());
+
+            }
+            System.out.println("\n");
+
+            System.out.println("Unpair transactions:");
+            Transaction[] trs3 = transactionsService.getUnpairedTransactions();
+            for (Transaction tr : trs3) {
+                System.out.println(tr.transactionInfo());
+            }
+
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
         } catch (IllegalTransactionException e) {
             e.printStackTrace();
-        }
-
-
-        Transaction transaction2 = null;
-        try {
-            transaction2 = new Transaction(usersList.getUserByIndex(2),
-                    usersList.getUserByIndex(1), Category.CREDIT,
-                    1000);
-        } catch (IllegalTransactionException e) {
+        } catch (TransactionNotFoundException e) {
             e.printStackTrace();
         }
-
-        TransactionsList transactionsList = new TransactionsLinkedList();
-        transactionsList.addTransaction(transaction);
-        transactionsList.addTransaction(transaction2);
-        transactionsList.showList();
-        Transaction[] trs = transactionsList.toArray();
-        for (Transaction tr : trs) {
-            System.out.println(tr.getAmount());
-        }
-
-
     }
 }

@@ -28,7 +28,10 @@ public class Transaction {
         if (amount > 0)
             this.amount = amount;
         else
-            amount = 0;
+            throw new IllegalTransactionException();
+
+        if (recipient.equals(sender))
+            throw new IllegalTransactionException();
 
         if (category == Category.CREDIT) {
             if (sender.outgoingBalance(amount))
@@ -53,10 +56,13 @@ public class Transaction {
 
         this.category = category;
 
+        if (recipient.equals(sender))
+            throw new IllegalTransactionException();
+
         if (amount > 0)
             this.amount = amount;
         else
-            amount = 0;
+            throw new IllegalTransactionException();
 
         if (category == Category.CREDIT) {
             if (sender.outgoingBalance(amount))
@@ -99,6 +105,6 @@ public class Transaction {
                 ", recipient: " + recipient.getUserId() + " " + recipient.getName() +
                 ", sender: " + sender.getUserId() + " " + sender.getName() +
                 ", category: " + category +
-                ", amount: " + amount + "\n");
+                ", amount: " + amount);
     }
 }

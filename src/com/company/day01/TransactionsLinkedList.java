@@ -48,14 +48,7 @@ public class TransactionsLinkedList implements TransactionsList{
     public boolean removeTransactionById(UUID id) {
         if (size == 0)
             return false;
-        else if (size == 1) {
-            first = null;
-            last =null;
-            size = 0;
-            return true;
-        }
             Node nodeBefore = getNodeById(id);
-
 
             if (nodeBefore == null){
                 first = first.next;
@@ -64,7 +57,7 @@ public class TransactionsLinkedList implements TransactionsList{
             }
             else if (nodeBefore != null)
             {
-                if (last.transaction.transId == id) {
+                if (last.transaction.getTransId() == id) {
                     nodeBefore.next = null;
                     last = nodeBefore;
                 } else {
@@ -80,14 +73,14 @@ public class TransactionsLinkedList implements TransactionsList{
     private Node getNodeById(UUID id) {
         if (size == 0)
             return null;
-        if (first.transaction.transId == id)
+        if (first.transaction.getTransId() == id)
         {
             return first;
         }
         Node node = first;
         while (node.next != null)
         {
-            if (node.next.transaction.transId == id)
+            if (node.next.transaction.getTransId() == id)
                 return node;
             node = node.next;
         }
