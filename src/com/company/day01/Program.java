@@ -35,7 +35,6 @@ public class Program {
             Transaction[] trs = transactionsService.getUserTransactions(0);
             for (Transaction tr : trs ) {
                 System.out.println(tr.transactionInfo());
-
             }
             //remove transaction
             transactionsService.removeUserTransactionsById(trs[0].getTransId(),0);
