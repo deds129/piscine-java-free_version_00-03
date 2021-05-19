@@ -1,4 +1,4 @@
-package com.company.day02;
+package com.company.day02.ex00;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
