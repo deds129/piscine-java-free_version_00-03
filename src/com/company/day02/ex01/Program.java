@@ -1,71 +1,68 @@
 //remove to norm work
 package com.company.day02.ex01;
 
-/*
-Now you need to implement an application that will determine the level of similarity
-between texts. The simplest and most obvious method to do this is to analyze the
-frequency of occurrence of the same words.
-Your goal is to implement an application that accepts two files as an input (both files are
-passed as command-line arguments) and displays their similarity comparison outcome
-(cosine measure).
-The program shall also create dictionary.txt file containing a dictionary based on these
-files.
- */
-
-/* todo:
-    1)read files + read words (from terminal)
-    2)create dictionary to save all word from files
-    2.1) save dictionary to file(dictionary.txt)
-    3)create vectors to save word frequency
-    4)count similarity using formula
-    5)output result
- */
-
 import java.io.*;
 import java.util.*;
 
 public class Program {
     public static void main(String[] args) {
 
-//        if (args.length != 2) {
-//            System.err.println("Invalid number of arguments passed");
-//            return;
-//        }
+        if (args.length != 2) {
+            System.err.println("Invalid number of arguments passed");
+            return;
+        }
         ArrayList<String>  firstFileWords = new ArrayList<>();
         ArrayList<String>  secondFileWords = new ArrayList<>();
         TreeSet<String> dictionary = new TreeSet<>();
 
         try (BufferedReader br = new BufferedReader(
-                new FileReader("C:\\Users\\deds\\Desktop\\piscine-java-free_version\\src\\com\\company\\day02\\ex01\\A.txt"));
+                new FileReader(args[0]));
              BufferedReader br2 = new BufferedReader(
-                     new FileReader("C:\\Users\\deds\\Desktop\\piscine-java-free_version\\src\\com\\company\\day02\\ex01\\B.txt"));
+                     new FileReader(args[1]));
              BufferedWriter bw = new BufferedWriter(
-                     new FileWriter("C:\\Users\\deds\\Desktop\\piscine-java-free_version\\src\\com\\company\\day02\\ex01\\dictionary.txt"))) {
+                     new FileWriter("dictionary.txt"))) {
 
             wordsToArray(br,firstFileWords,dictionary);
             wordsToArray(br2,secondFileWords,dictionary);
 
             outputDictionary(bw, dictionary);
-
-            countFrequency(firstFileWords, secondFileWords, dictionary);
-//            System.out.println(firstFileWords);
-//            System.out.println(secondFileWords);
-//            System.out.println(dictionary);
-
-
-        } catch (FileNotFoundException ex) {
+            double res = countFrequency(firstFileWords, secondFileWords, dictionary);
+            System.out.printf("Similarity = %.2f", res);
+        } catch (IOException ex) {
             ex.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    private static void countFrequency(ArrayList<String> firstFileWords, ArrayList<String> secondFileWords, TreeSet<String> dictionary) {
-        ArrayList<Integer> firstWordsEntries = new ArrayList<>(dictionary.size());
-        ArrayList<Integer> secondWordsEntries = new ArrayList<>(dictionary.size());
+    private static double countFrequency(ArrayList<String> firstFileWords, ArrayList<String> secondFileWords, TreeSet<String> dictionary) {
+
+
+        ArrayList<Integer> firstWordsEntries = new ArrayList<>();
+        ArrayList<Integer> secondWordsEntries = new ArrayList<>();
+        double result = -1;
         countEntries(firstFileWords,firstWordsEntries,dictionary);
         countEntries(secondFileWords,secondWordsEntries,dictionary);
+        if (firstWordsEntries.size() == secondWordsEntries.size())
+        {
+            double numerator = 0;
+            double denumerator = 1;
+            for (int i = 0; i < firstWordsEntries.size() ; i++) {
+                numerator += firstWordsEntries.get(i) * secondWordsEntries.get(i);
+            }
 
+
+            double tmp = 0;
+            for (int i = 0; i < firstWordsEntries.size() ; i++) {
+               tmp += Math.pow(firstWordsEntries.get(i), 2) ;
+            }
+
+            double temp = 0;
+            for (int i = 0; i < secondWordsEntries.size(); i++) {
+                temp += Math.pow(secondWordsEntries.get(i), 2);
+            }
+            denumerator = Math.sqrt(tmp) * Math.sqrt(temp);
+            result = numerator / denumerator;
+        }
+        return result;
     }
     public static void countEntries(ArrayList<String> fileWords, ArrayList<Integer> wordsEntries, TreeSet<String> dictionary)
     {
@@ -83,7 +80,6 @@ public class Program {
             }
             wordsEntries.add(couter);
         }
-        System.out.println(wordsEntries);
     }
 
     public static void outputDictionary( BufferedWriter bw,TreeSet<String> dictionary) throws IOException {
@@ -109,7 +105,8 @@ public class Program {
         }
     }
 
-    //have to replace using regex
+    //can use to compare text w/o punctuation
+    //additionaly point
     public static String reformatPunct(String str) {
         StringBuilder result = new StringBuilder(str.length());
         for (int i = 0; i < str.length(); i++) {
