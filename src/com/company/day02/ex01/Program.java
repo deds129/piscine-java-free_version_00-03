@@ -21,14 +21,8 @@ files.
     5)output result
  */
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
-import java.util.Vector;
+import java.io.*;
+import java.util.*;
 
 public class Program {
     public static void main(String[] args) {
@@ -40,13 +34,23 @@ public class Program {
         ArrayList<String>  firstFileWords = new ArrayList<>();
         ArrayList<String>  secondFileWords = new ArrayList<>();
         TreeSet<String> dictionary = new TreeSet<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\deds\\Desktop\\piscine-java-free_version\\src\\com\\company\\day02\\ex01\\A.txt"));
-             BufferedReader br2 = new BufferedReader(new FileReader("C:\\Users\\deds\\Desktop\\piscine-java-free_version\\src\\com\\company\\day02\\ex01\\B.txt"))) {
+
+        try (BufferedReader br = new BufferedReader(
+                new FileReader("C:\\Users\\deds\\Desktop\\piscine-java-free_version\\src\\com\\company\\day02\\ex01\\A.txt"));
+             BufferedReader br2 = new BufferedReader(
+                     new FileReader("C:\\Users\\deds\\Desktop\\piscine-java-free_version\\src\\com\\company\\day02\\ex01\\B.txt"));
+             BufferedWriter bw = new BufferedWriter(
+                     new FileWriter("C:\\Users\\deds\\Desktop\\piscine-java-free_version\\src\\com\\company\\day02\\ex01\\dictionary.txt"))) {
+
             wordsToArray(br,firstFileWords,dictionary);
             wordsToArray(br2,secondFileWords,dictionary);
-            System.out.println(firstFileWords);
-            System.out.println(secondFileWords);
-            System.out.println(dictionary);
+
+            outputDictionary(bw, dictionary);
+
+          //  wordCount(firstFileWords, secondFileWords, dictionary);
+//            System.out.println(firstFileWords);
+//            System.out.println(secondFileWords);
+//            System.out.println(dictionary);
 
 
         } catch (FileNotFoundException ex) {
@@ -54,6 +58,13 @@ public class Program {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static void outputDictionary( BufferedWriter bw,TreeSet<String> dictionary) throws IOException {
+        ArrayList<String> dictArray = new ArrayList<>(dictionary);
+        for (int i = 0; i < dictArray.size() - 1; i++) {
+            bw.write(dictArray.get(i) + ", ");
+        }
+        bw.write(dictArray.get(dictArray.size()- 1 ));
     }
 
     public static void wordsToArray(BufferedReader bufferedReader,
