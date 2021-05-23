@@ -47,7 +47,7 @@ public class Program {
 
             outputDictionary(bw, dictionary);
 
-          //  wordCount(firstFileWords, secondFileWords, dictionary);
+            countFrequency(firstFileWords, secondFileWords, dictionary);
 //            System.out.println(firstFileWords);
 //            System.out.println(secondFileWords);
 //            System.out.println(dictionary);
@@ -59,6 +59,33 @@ public class Program {
             e.printStackTrace();
         }
     }
+
+    private static void countFrequency(ArrayList<String> firstFileWords, ArrayList<String> secondFileWords, TreeSet<String> dictionary) {
+        ArrayList<Integer> firstWordsEntries = new ArrayList<>(dictionary.size());
+        ArrayList<Integer> secondWordsEntries = new ArrayList<>(dictionary.size());
+        countEntries(firstFileWords,firstWordsEntries,dictionary);
+        countEntries(secondFileWords,secondWordsEntries,dictionary);
+
+    }
+    public static void countEntries(ArrayList<String> fileWords, ArrayList<Integer> wordsEntries, TreeSet<String> dictionary)
+    {
+        int couter;
+        Iterator<String> iterator = dictionary.iterator();
+        while (iterator.hasNext())
+        {
+            couter = 0;
+            String tmp = iterator.next();
+            Iterator<String> iterator1 = fileWords.iterator();
+            while (iterator1.hasNext())
+            {
+                if (iterator1.next().equals(tmp))
+                    couter++;
+            }
+            wordsEntries.add(couter);
+        }
+        System.out.println(wordsEntries);
+    }
+
     public static void outputDictionary( BufferedWriter bw,TreeSet<String> dictionary) throws IOException {
         ArrayList<String> dictArray = new ArrayList<>(dictionary);
         for (int i = 0; i < dictArray.size() - 1; i++) {
