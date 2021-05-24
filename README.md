@@ -1,5 +1,5 @@
 # piscine-java-free_version
-### CheckList
+### CheckList(In progress)
 ✅Day00 - Management structures and arrays
 
 ✅Day01 - OOP,Collections
