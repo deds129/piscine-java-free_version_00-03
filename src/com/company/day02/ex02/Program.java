@@ -1,7 +1,7 @@
 package com.company.day02.ex02;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 /*
@@ -72,7 +72,21 @@ public class Program {
                 }
                 if (input.startsWith("mv "))
                 {
+                    //check to 2 files
+                    String[] inputArgs = input.split(" ");
+                    if (inputArgs.length == 3)
+                    {
+                        String file1;
+                        String file2;
+                        file1 = rootPath + "/" + inputArgs[1].trim();
+                        file2 = rootPath + "/" + inputArgs[2].trim();
+//                        System.out.println(file1);
+//                        System.out.println(file2);
+                        moveFile(rootFile, file1, file2);
 
+                    }
+                    else
+                        System.out.println("Invalid number of arguments passed!");
                 }
             }
         }
@@ -81,9 +95,16 @@ public class Program {
 
     }
 
+    public static void moveFile(File dir, String fileName1, String fileName2)
+    {
+        //Если в качестве аргументов заданы имена двух файлов, то имя первого файла будет изменено на имя второго.
+        //if ()
+        //Если последний аргумент является именем существующего каталога, то mv перемещает все заданные файлы в этот каталог.
+    }
+
     public static void showDirContent(File dir) {
         if (dir.isDirectory()) {
-            for (File item : dir.listFiles()) {
+            for (File item : Objects.requireNonNull(dir.listFiles())) {
 
                 if (item.isDirectory()) {
                     System.out.println("folder:   " + "\t"
