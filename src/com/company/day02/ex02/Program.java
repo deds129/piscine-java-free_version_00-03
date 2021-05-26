@@ -67,14 +67,15 @@ public class Program {
                     showDirContent(rootFile);
                else if (input.startsWith("cd "))
                 {
-                    String fileName = rootPath +"/"+ input.substring(input.indexOf(' ') + 1);
-                    //System.out.println(fileName);
-                    startFromRootPath(fileName);
+                    if(rootPath.endsWith("/"))
+                        rootPath = rootPath + input.substring(input.indexOf(' ') + 1);
+                    else
+                        rootPath = rootPath + "/" + input.substring(input.indexOf(' ') + 1);
+                    startFromRootPath(rootPath);
                     break;
                 }
                else if (input.startsWith("mv "))
                 {
-                    //check to 2 files
                     String[] inputArgs = input.split(" ");
                     if (inputArgs.length == 3)
                     {
@@ -92,17 +93,19 @@ public class Program {
 
     }
 
-    public static void moveFile(File rootPath, String pureFileName1, String pureFileName2) throws IOException {
+    public static void moveFile(File rootPath, String pureFileName1, String mvFolder) throws IOException {
 
-        String fileName1 = rootPath + "\\" + pureFileName1;
-        String fileName2 = rootPath + "\\" + pureFileName2;
+        String fileName1 = rootPath + "/" + pureFileName1;
+        System.out.println(fileName1);
+        System.out.println(mvFolder);
         Path testFile1 = Paths.get(fileName1);
-        //Path testFile2 = Paths.get(fileName2); Files.isDirectory(testFile2)
-       // System.out.println(fileName2);
+        Path testFile2 = Paths.get(mvFolder);
+
 
         if (Files.exists(Paths.get(fileName1))) {
-            testFile1 = Files.move(testFile1, Paths.get(pureFileName2), REPLACE_EXISTING);
-            System.out.println(fileName2);
+            //throw DirectoryNotEmptyException
+            testFile1 = Files.move(testFile1, Paths.get(mvFolder), REPLACE_EXISTING);
+            System.out.println(mvFolder);
         }
 
 
