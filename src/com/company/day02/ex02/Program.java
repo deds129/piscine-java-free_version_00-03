@@ -1,9 +1,13 @@
 package com.company.day02.ex02;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.File;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 /*
 $ java Program --current-folder=C:/MAIN
 C:/MAIN
@@ -40,8 +44,6 @@ public class Program {
 //            return ;
         try {
 //            String rootPath = args[0].substring(args[0].indexOf('=') + 1);
-
-            //turn rootPath
             startFromRootPath("C:/");
 
         }catch (Exception e)
@@ -51,8 +53,8 @@ public class Program {
 
     }
 
-    public static void startFromRootPath(String rootPath)
-    {
+    //todo: replace func using Path, Paths, Files methods(Java 8), not File(Java 7)
+    public static void startFromRootPath(String rootPath) throws IOException {
         File rootFile = new File(rootPath);
         if (rootFile.isDirectory())
         {
@@ -63,31 +65,26 @@ public class Program {
                 input = scanner.nextLine();
                 if (input.equals("ls"))
                     showDirContent(rootFile);
-                if (input.startsWith("cd "))
+               else if (input.startsWith("cd "))
                 {
                     String fileName = rootPath +"/"+ input.substring(input.indexOf(' ') + 1);
                     //System.out.println(fileName);
                     startFromRootPath(fileName);
                     break;
                 }
-                if (input.startsWith("mv "))
+               else if (input.startsWith("mv "))
                 {
                     //check to 2 files
                     String[] inputArgs = input.split(" ");
                     if (inputArgs.length == 3)
                     {
-                        String file1;
-                        String file2;
-                        file1 = rootPath + "/" + inputArgs[1].trim();
-                        file2 = rootPath + "/" + inputArgs[2].trim();
-//                        System.out.println(file1);
-//                        System.out.println(file2);
-                        moveFile(rootFile, file1, file2);
-
+                        moveFile(rootFile, inputArgs[1].trim(), inputArgs[2].trim());
                     }
                     else
                         System.out.println("Invalid number of arguments passed!");
                 }
+               else
+                    System.out.println("Command not found!");
             }
         }
         else
@@ -95,13 +92,22 @@ public class Program {
 
     }
 
-    public static void moveFile(File dir, String fileName1, String fileName2)
-    {
-        //Если в качестве аргументов заданы имена двух файлов, то имя первого файла будет изменено на имя второго.
-        //if ()
-        //Если последний аргумент является именем существующего каталога, то mv перемещает все заданные файлы в этот каталог.
-    }
+    public static void moveFile(File rootPath, String pureFileName1, String pureFileName2) throws IOException {
 
+        String fileName1 = rootPath + "\\" + pureFileName1;
+        String fileName2 = rootPath + "\\" + pureFileName2;
+        Path testFile1 = Paths.get(fileName1);
+        //Path testFile2 = Paths.get(fileName2); Files.isDirectory(testFile2)
+       // System.out.println(fileName2);
+
+        if (Files.exists(Paths.get(fileName1))) {
+            testFile1 = Files.move(testFile1, Paths.get(pureFileName2), REPLACE_EXISTING);
+            System.out.println(fileName2);
+        }
+
+
+    }
+    //todo: replace func using Path, Paths, Files methods(Java 8), not File(Java 7)
     public static void showDirContent(File dir) {
         if (dir.isDirectory()) {
             for (File item : Objects.requireNonNull(dir.listFiles())) {
