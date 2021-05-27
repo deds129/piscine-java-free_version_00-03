@@ -4,7 +4,9 @@
 
 ✅Day01 - OOP,Collections
 
-✅Day02 - IO, Files Day03 - Threads
+✅Day02 - IO, Files
+
+❌Day03 - Threads
 
 ❌Day04 - JAR Day05 - SQL,JDBC
 
