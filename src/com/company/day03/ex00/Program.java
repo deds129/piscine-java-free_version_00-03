@@ -1,10 +1,8 @@
-package com.company.day03;
+package com.company.day03.ex00;
 
 public class Program {
     public static void main(String[] args) {
-
-        String[] arr = {"--count=50"};
-        int count = validateFlag(arr);
+        int count = validateFlag(args);
 
         if (count < 1){
             System.err.println("Invalid flag!");
