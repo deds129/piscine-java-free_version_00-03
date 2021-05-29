@@ -2,6 +2,7 @@ package com.company.day03.ex00;
 
 public class Program {
     public static void main(String[] args) {
+       // String[] arr = {"--count=50"};
         int count = validateFlag(args);
 
         if (count < 1){
@@ -15,7 +16,7 @@ public class Program {
                 for (int i = 0; i <count ; i++) {
                     try {
                         Thread.sleep((long)(( Math.random() * (500-100) ) + 100));
-                        System.out.println("Egg");
+                        System.out.println("Egg #" + i);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -30,7 +31,7 @@ public class Program {
                 for (int i = 0; i <count ; i++) {
                     try {
                         Thread.sleep((long)(( Math.random() * (500-100) ) + 100));
-                        System.out.println("Hen");
+                        System.out.println("Hen #" + i);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -46,7 +47,7 @@ public class Program {
         for (int i = 0; i < count ; i++) {
             try {
                 Thread.sleep((long)(( Math.random() * (500-100) ) + 100));
-                System.out.println("Human");
+                System.out.println("Human #" +i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

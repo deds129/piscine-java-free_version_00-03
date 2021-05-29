@@ -1,6 +1,6 @@
 package com.company.day03.ex01;
 
-public class Program {
+public class FirrstVer {
 
         public static void main(String[] args) {
             String[] arr = {"--count=50"};
@@ -14,8 +14,9 @@ public class Program {
             Hen hen = new Hen(count, outController);
             Egg egg = new Egg(count, outController);
 
-            Thread henTread = new Thread(hen);
             Thread eggTread = new Thread(egg);
+            Thread henTread = new Thread(hen);
+
 
             eggTread.start();
             henTread.start();
@@ -24,31 +25,31 @@ public class Program {
     public static class OutController
     {
         private boolean outStatus = false;
-        public synchronized void eggOut(){
+        public synchronized void eggOut(int num){
             if (!outStatus)
             {
                 try {
                     wait();
-                    System.out.println("Egg");
+                    System.out.println("Egg #" +num);
                 }catch (InterruptedException e){
+                    e.printStackTrace();
                 }
             }
             outStatus = true;
-
             notify();
         }
 
-        public synchronized void henOut(){
+        public synchronized void henOut(int num){
             if (outStatus)
             {
                 try {
                     wait();
-                    System.out.println("Hen");
+                    System.out.println("Hen #" + num);
                 }catch (InterruptedException e){
+                    e.printStackTrace();
                 }
             }
             outStatus = false;
-
             notify();
         }
     }
@@ -63,11 +64,11 @@ public class Program {
         }
 
         @Override
-        public void run() {
+        public synchronized void run() {
             for (int i = 0; i < counter; i++) {
                 try {
                     Thread.sleep((long)(( Math.random() * (500-100) ) + 100));
-                    outController.eggOut();
+                    outController.eggOut(i);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -90,7 +91,7 @@ public class Program {
             for (int i = 0; i < counter; i++) {
                 try {
                     Thread.sleep((long)(( Math.random() * (500-100) ) + 100));
-                    outController.henOut();
+                    outController.henOut(i);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
