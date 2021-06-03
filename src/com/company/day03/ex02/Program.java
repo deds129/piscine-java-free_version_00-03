@@ -14,6 +14,10 @@ element is 1,000. All data is guaranteed to be valid.
  */
 public class Program {
     public static void main(String[] args) {
+        String[] testArgs = {"--arraySize=13", "--threadsCount=3"};
+        FlagValidator flagValidator = new FlagValidator(testArgs);
+        System.out.println(flagValidator.getArraySize() +" "+ flagValidator.getThreadsCount());
 
     }
 }
+
