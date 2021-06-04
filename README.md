@@ -6,7 +6,7 @@
 
 ✅Day02 - IO, Files
 
-❌Day03 - Threads
+✅Day03 - Threads
 
 ❌Day04 - JAR Day05 - SQL,JDBC
 
