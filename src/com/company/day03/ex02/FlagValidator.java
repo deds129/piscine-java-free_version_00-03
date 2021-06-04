@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 public class FlagValidator {
 
-    private int arraySize;
-    private int threadsCount;
+    private final int arraySize;
+    private final int threadsCount;
 
 
     public FlagValidator() {
