@@ -8,7 +8,7 @@
 
 ✅Day03 - Threads
 
-❌Day04 - JAR 
+✅Day04 - JAR (https://github.com/deds129/ImagesToChar.git)
 
 ❌Day05 - SQL,JDBC
 
