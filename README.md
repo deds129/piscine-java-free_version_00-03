@@ -10,7 +10,7 @@
 
 ✅Day04 - JAR (https://github.com/deds129/ImagesToChar.git)
 
-❌Day05 - SQL,JDBC
+✅Day05 - SQL,JDBC
 
 ❌Day06 - JUnit,Mockito
 
