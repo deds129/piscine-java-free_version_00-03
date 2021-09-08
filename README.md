@@ -12,9 +12,9 @@
 
 ✅Day05 - SQL,JDBC (https://github.com/deds129/pj-d05_Chat_SQL_JDBC)
 
-❌Day06 - JUnit,Mockito
+✅Day06 - JUnit,Mockito
 
-❌Day07 - Reflection
+✅Day07 - Reflection
 
 ❌Day08 - Spring
 
